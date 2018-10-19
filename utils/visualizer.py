@@ -1,7 +1,11 @@
+# coding: utf-8
+
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
+
 import visdom
-import time
 import numpy as np
-from matplotlib import pyplot as plt
 from sklearn.metrics import roc_curve
 
 

@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on 18-6-7 上午10:11
+# coding: utf-8
 
-@author: ronghuaiyang
-"""
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 
 import torch
 import torch.nn as nn

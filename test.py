@@ -1,17 +1,15 @@
-# -*- coding: utf-8 -*-
-"""
-Created on 18-5-30 下午4:55
+# coding: utf-8
 
-@author: ronghuaiyang
-"""
 from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
+
 import os
 import cv2
-from models import *
 import torch
 import numpy as np
 import time
-from config import Config
+from config.config import Config
 from torch.nn import DataParallel
 
 

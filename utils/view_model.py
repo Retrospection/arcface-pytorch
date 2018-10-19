@@ -1,3 +1,9 @@
+# coding: utf-8
+
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
+
 import torch
 from torch.autograd import Variable
 import torch.nn as nn
@@ -101,18 +107,3 @@ def view_model(net, input_shape):
 if __name__ == '__main__':
     net = CNN()
     view_model(net)
-    # x = Variable(torch.randn(1, 1, 28, 28))
-    # y = net(x)
-    # g = make_dot(y)
-    # g.view()
-    #
-    # params = list(net.parameters())
-    # k = 0
-    # for i in params:
-    #     l = 1
-    #     print("layer parameters:" + str(list(i.size())))
-    #     for j in i.size():
-    #         l *= j
-    #     print("layer parameters:" + str(l))
-    #     k = k + l
-    # print("total parameters:" + str(k))

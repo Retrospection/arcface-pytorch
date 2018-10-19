@@ -1,6 +1,12 @@
+# coding: utf-8
+
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
+
 import os
 from PIL import Image
-import torch
+
 from torch.utils import data
 import numpy as np
 from torchvision import transforms as T
@@ -18,26 +24,21 @@ class Dataset(data.Dataset):
         with open(os.path.join(data_list_file), 'r') as fd:
             imgs = fd.readlines()
 
-        imgs = [os.path.join(root, img[:-1]) for img in imgs]
+        # imgs = [os.path.join(root, img.strip()) for img in imgs]
         self.imgs = np.random.permutation(imgs)
-
-        # normalize = T.Normalize(mean=[0.5, 0.5, 0.5],
-        #                         std=[0.5, 0.5, 0.5])
-
-        normalize = T.Normalize(mean=[0.5], std=[0.5])
 
         if self.phase == 'train':
             self.transforms = T.Compose([
                 T.RandomCrop(self.input_shape[1:]),
                 T.RandomHorizontalFlip(),
                 T.ToTensor(),
-                normalize
+                T.Normalize(mean=[0.5], std=[0.5])
             ])
         else:
             self.transforms = T.Compose([
                 T.CenterCrop(self.input_shape[1:]),
                 T.ToTensor(),
-                normalize
+                T.Normalize(mean=[0.5], std=[0.5])
             ])
 
     def __getitem__(self, index):
@@ -55,30 +56,13 @@ class Dataset(data.Dataset):
 
 
 if __name__ == '__main__':
-    dataset = Dataset(root='/data/Datasets/fv/dataset_v1.1/dataset_mix_aligned_v1.1',
-                      data_list_file='/data/Datasets/fv/dataset_v1.1/mix_20w.txt',
-                      phase='test',
-                      input_shape=(1, 128, 128))
+    dataset = Dataset(
+        root=r'D:\dev\data\aligned-CASIA-WebFace',
+        data_list_file=r'D:\dev\project\arcface-pytorch\train_list.txt',
+        phase='train',
+        input_shape=(1, 128, 128)
+    )
 
-    trainloader = data.DataLoader(dataset, batch_size=10)
+    trainloader = data.DataLoader(dataset, batch_size=16)
     for i, (data, label) in enumerate(trainloader):
-        # imgs, labels = data
-        # print imgs.numpy().shape
-        # print data.cpu().numpy()
-        # if i == 0:
-        img = torchvision.utils.make_grid(data).numpy()
-        # print img.shape
-        # print label.shape
-        # chw -> hwc
-        img = np.transpose(img, (1, 2, 0))
-        # img *= np.array([0.229, 0.224, 0.225])
-        # img += np.array([0.485, 0.456, 0.406])
-        img += np.array([1, 1, 1])
-        img *= 127.5
-        img = img.astype(np.uint8)
-        img = img[:, :, [2, 1, 0]]
-
-        cv2.imshow('img', img)
-        cv2.waitKey()
-        # break
-        # dst.decode_segmap(labels.numpy()[0], plot=True)
+       print(data.shape, label)

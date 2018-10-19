@@ -1,15 +1,16 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
+
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 """
 Created on 18-5-21 下午5:26
 
 @author: ronghuaiyang
 """
-import torch
+
 import torch.nn as nn
-import math
 import torch.utils.model_zoo as model_zoo
-import torch.nn.utils.weight_norm as weight_norm
-import torch.nn.functional as F
 
 
 # __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
@@ -341,3 +342,7 @@ def resnet152(pretrained=False, **kwargs):
 def resnet_face18(use_se=True, **kwargs):
     model = ResNetFace(IRBlock, [2, 2, 2, 2], use_se=use_se, **kwargs)
     return model
+
+if __name__ == '__main__':
+    model = resnet_face18()
+    print(model)
