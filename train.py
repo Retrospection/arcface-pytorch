@@ -12,11 +12,11 @@ import torch
 import torch.nn as nn
 
 from torch.nn import DataParallel
-from torch.utils import batch_data
+from torch.utils import data
 from torch.optim.lr_scheduler import StepLR, MultiStepLR
 
 
-from batch_data.dataset import Dataset
+from data.dataset import Dataset
 from utils.visualizer import Visualizer
 from config.config import Config
 from test import lfw_test, get_lfw_list
@@ -43,7 +43,7 @@ if __name__ == '__main__':
   # ---------------------------------- prepare data ------------------------------
 
   train_dataset = Dataset(config.train_root, config.train_list, phase='train', input_shape=config.input_shape)
-  train_loader = batch_data.DataLoader(train_dataset, batch_size=config.train_batch_size, shuffle=True, num_workers=config.num_workers)
+  train_loader = data.DataLoader(train_dataset, batch_size=config.train_batch_size, shuffle=True, num_workers=config.num_workers)
 
   test_identity_list = get_lfw_list(config.lfw_test_list)
   test_img_paths = [os.path.join(config.lfw_root, each) for each in test_identity_list]
@@ -87,7 +87,7 @@ if __name__ == '__main__':
                                  weight_decay=config.weight_decay)
 
   # scheduler = StepLR(optimizer, step_size=conf.lr_step, gamma=0.1)
-  scheduler = MultiStepLR(optimizer, milestones=[50, 70, 100], gamma=0.1)
+  scheduler = MultiStepLR(optimizer, milestones=config.lr_milestone, gamma=0.1)
 
 
 
