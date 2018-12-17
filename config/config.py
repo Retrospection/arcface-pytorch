@@ -6,50 +6,53 @@ from __future__ import division
 
 
 class Config(object):
-    env = 'default'
-    backbone = 'resnet18'
-    classify = 'softmax'
-    num_classes = 13938
-    metric = 'arc_margin'
-    easy_margin = False
-    use_se = False
-    loss = 'focal_loss'
 
-    display = False
-    finetune = False
+  env = 'default'
+  backbone = 'resnet18'
+  classify = 'softmax'
+  num_classes = 10575
+  metric = 'arc_margin'
+  easy_margin = True
+  use_se = True
+  loss = 'focal_loss'
 
-    train_root = r'D:\dev\data\aligned-CASIA-WebFace'
-    train_list = r'D:\dev\project\arcface-pytorch\train_list.txt'
-    val_list = r'D:\dev\project\arcface-pytorch\train_list.txt'
+  display = False
+  finetune = False
 
-    test_root = r'D:\dev\data\aligned-CASIA-WebFace'
-    test_list = r'D:\dev\project\arcface-pytorch\train_list.txt'
+  train_root = r'/home/cuda80/yrs/train_data/webface-align-182-png'
+  train_list = r'/home/cuda80/yrs/20181211/arcface-pytorch/train_list.txt'
+  val_list = r'/home/cuda80/yrs/20181211/arcface-pytorch/train_list.txt'
 
-    lfw_root = r'C:\Users\FOOTS\scikit_learn_data\lfw_home\lfw_funneled'
-    lfw_test_list = r'D:\dev\project\arcface-pytorch\lfw_test_pair.txt'
+  test_root = r'/home/cuda80/yrs/train_data/webface-align-182-png'
+  test_list = r'/home/cuda80/yrs/20181211/arcface-pytorch/train_list.txt'
 
-    checkpoints_path = 'checkpoints'
-    load_model_path = './models/resnet18.pth'
-    test_model_path = './checkpoints/resnet18_40.pth'
-    save_interval = 10
+  lfw_root = r'/home/cuda80/yrs/test_data/lfw_home/lfw-align-128'
+  lfw_test_list = r'/home/cuda80/yrs/20181211/arcface-pytorch/lfw_test_pair.txt'
 
-    train_batch_size = 96  # batch size
-    test_batch_size = 64
+  checkpoints_path = 'checkpoints'
+  # load_model_path = './checkpoints/20181214_201050_sgd/resnet18_20.pth'
+  load_model_path = ''
+  # test_model_path = './checkpoints/pretrained/resnet18_110.pth'
+  test_model_path = ''
+  save_interval = 10
 
-    input_shape = (1, 128, 128)
+  train_batch_size = 256  # batch size
+  test_batch_size = 64
 
-    optimizer = 'sgd'
+  input_shape = (1, 128, 128)
 
-    use_gpu = True  # use GPU or not
-    gpu_id = '0'
-    num_workers = 4  # how many workers for loading data
-    print_freq = 100  # print info every N batch
+  optimizer = 'sgd'
 
-    debug_file = './debug'  # if os.path.exists(debug_file): enter ipdb
-    result_file = 'result.csv'
+  use_gpu = True  # use GPU or not
+  gpu_id = [0, 1]
+  num_workers = 8  # how many workers for loading data
+  log_interval = 100  # print info every N batch
 
-    max_epoch = 50
-    lr = 1e-1  # initial learning rate
-    lr_step = 10
-    lr_decay = 0.95  # when val_loss increase, lr = lr*lr_decay
-    weight_decay = 5e-4
+  debug_file = './debug'  # if os.path.exists(debug_file): enter ipdb
+  result_file = 'result.csv'
+
+  max_epoch = 300
+  lr = 0.1  # initial learning rate
+  lr_step = 10
+  lr_decay = 0.98  # when val_loss increase, lr = lr*lr_decay
+  weight_decay = 5e-4
